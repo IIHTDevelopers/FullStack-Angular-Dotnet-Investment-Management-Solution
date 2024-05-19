@@ -1,0 +1,48 @@
+<div>
+    <h1>All Investments</h1>
+    <ul>
+        <li *ngFor="let item of filteredInvestments">
+            {{ item.investmentName }} - {{ item.initialInvestmentAmount }} - {{ item.investmentStartDate | date }} - {{
+            item.currentValue }} - {{ item.investorId }}
+            <button (click)="handleEditInvestment(item.investmentId)">Edit</button>
+            <button (click)="handleDeleteInvestment(item.investmentId)">Delete</button>
+        </li>
+    </ul>
+    <div>
+        <h2>Create/Update Investment</h2>
+        <div>
+            <label for="investmentName">Investment Name:</label>
+            <input type="text" id="investmentName" name="investmentName" [(ngModel)]="investment.investmentName"
+                placeholder="Investment Name" (input)="handleInputChange($event)" />
+        </div>
+        <div>
+            <label for="initialInvestmentAmount">Initial Amount:</label>
+            <input type="number" id="initialInvestmentAmount" name="initialInvestmentAmount"
+                [(ngModel)]="investment.initialInvestmentAmount" placeholder="Initial Amount"
+                (input)="handleInputChange($event)" />
+        </div>
+        <div>
+            <label for="investmentStartDate">Start Date:</label>
+            <input type="date" id="investmentStartDate" name="investmentStartDate"
+                [(ngModel)]="investment.investmentStartDate" placeholder="Start Date"
+                (input)="handleInputChange($event)" />
+        </div>
+        <div>
+            <label for="currentValue">Current Value:</label>
+            <input type="number" id="currentValue" name="currentValue" [(ngModel)]="investment.currentValue"
+                placeholder="Current Value" (input)="handleInputChange($event)" />
+        </div>
+        <div>
+            <label for="investorId">Investor ID:</label>
+            <input type="number" id="investorId" name="investorId" [(ngModel)]="investment.investorId"
+                placeholder="Investor ID" (input)="handleInputChange($event)" />
+        </div>
+        <button (click)="selectedId ? handleUpdateInvestment() : handleCreateInvestment()"
+            [disabled]="isCreateButtonDisabled()">
+            {{ selectedId ? 'Update' : 'Create' }}
+        </button>
+    </div>
+    <div *ngIf="responseMessage" class="response-message">
+        {{ responseMessage }}
+    </div>
+</div>
